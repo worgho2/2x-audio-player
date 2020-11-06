@@ -1,24 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="_xSpeedAudio" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KHt-YI-EIh">
+                                <rect key="frame" x="0.0" y="44" width="414" height="204.5"/>
+                                <color key="backgroundColor" systemColor="systemPinkColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kGF-pL-p7M">
+                                <rect key="frame" x="0.0" y="248.5" width="414" height="491"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YPO-OQ-fF3">
+                                <rect key="frame" x="0.0" y="739.5" width="414" height="122.5"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="YPO-OQ-fF3" firstAttribute="top" secondItem="kGF-pL-p7M" secondAttribute="bottom" id="Adc-8h-bBX"/>
+                            <constraint firstItem="YPO-OQ-fF3" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="BAV-sY-XQt"/>
+                            <constraint firstItem="kGF-pL-p7M" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Co6-0k-1oR"/>
+                            <constraint firstItem="KHt-YI-EIh" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.25" id="Oqa-Zu-rs8"/>
+                            <constraint firstItem="kGF-pL-p7M" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Q8S-6u-Na1"/>
+                            <constraint firstItem="YPO-OQ-fF3" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Qtk-AS-nuj"/>
+                            <constraint firstItem="KHt-YI-EIh" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="aCc-yA-Kv8"/>
+                            <constraint firstItem="YPO-OQ-fF3" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.15" id="eQs-wG-UmY"/>
+                            <constraint firstItem="KHt-YI-EIh" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="iJ1-qE-yrP"/>
+                            <constraint firstItem="kGF-pL-p7M" firstAttribute="top" secondItem="KHt-YI-EIh" secondAttribute="bottom" id="qqW-fL-hfL"/>
+                            <constraint firstItem="kGF-pL-p7M" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.6" id="wAZ-dh-Gdz"/>
+                            <constraint firstItem="KHt-YI-EIh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="y1K-OQ-kdw"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-259" y="119"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
