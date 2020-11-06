@@ -18,6 +18,12 @@
 		7ACA8424254BC330000FCD3C /* extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7ACA841A254BC330000FCD3C /* extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7ACA844A254BEAE6000FCD3C /* ExtensionDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACA8449254BEAE6000FCD3C /* ExtensionDataManager.swift */; };
 		7ACA844B254BEAE6000FCD3C /* ExtensionDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACA8449254BEAE6000FCD3C /* ExtensionDataManager.swift */; };
+		7AEA52DB2554B7A200A624FE /* PlayerObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA52DA2554B7A200A624FE /* PlayerObserverProtocol.swift */; };
+		7AEA52DC2554B7A200A624FE /* PlayerObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA52DA2554B7A200A624FE /* PlayerObserverProtocol.swift */; };
+		7AEA52E42554B9F400A624FE /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA52E32554B9F400A624FE /* AudioPlayer.swift */; };
+		7AEA52E52554B9F400A624FE /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA52E32554B9F400A624FE /* AudioPlayer.swift */; };
+		7AEA52EA2554C29E00A624FE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA52E92554C29E00A624FE /* Extensions.swift */; };
+		7AEA52EB2554C29E00A624FE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA52E92554C29E00A624FE /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +64,9 @@
 		7ACA841F254BC330000FCD3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		7ACA8421254BC330000FCD3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7ACA8449254BEAE6000FCD3C /* ExtensionDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDataManager.swift; sourceTree = "<group>"; };
+		7AEA52DA2554B7A200A624FE /* PlayerObserverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObserverProtocol.swift; sourceTree = "<group>"; };
+		7AEA52E32554B9F400A624FE /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		7AEA52E92554C29E00A624FE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +116,8 @@
 				7ACA840A254BC20C000FCD3C /* LaunchScreen.storyboard */,
 				7ACA840D254BC20C000FCD3C /* Info.plist */,
 				7ACA8449254BEAE6000FCD3C /* ExtensionDataManager.swift */,
+				7AEA52E82554C27900A624FE /* extensions */,
+				7AEA52EE2554C61000A624FE /* audioPlayer */,
 			);
 			path = 2xSpeedAudio;
 			sourceTree = "<group>";
@@ -119,6 +130,23 @@
 				7ACA8421254BC330000FCD3C /* Info.plist */,
 			);
 			path = extension;
+			sourceTree = "<group>";
+		};
+		7AEA52E82554C27900A624FE /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7AEA52E92554C29E00A624FE /* Extensions.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		7AEA52EE2554C61000A624FE /* audioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				7AEA52DA2554B7A200A624FE /* PlayerObserverProtocol.swift */,
+				7AEA52E32554B9F400A624FE /* AudioPlayer.swift */,
+			);
+			path = audioPlayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,10 +250,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AEA52DB2554B7A200A624FE /* PlayerObserverProtocol.swift in Sources */,
 				7ACA8404254BC20A000FCD3C /* ViewController.swift in Sources */,
 				7ACA8400254BC20A000FCD3C /* AppDelegate.swift in Sources */,
+				7AEA52E42554B9F400A624FE /* AudioPlayer.swift in Sources */,
 				7ACA8402254BC20A000FCD3C /* SceneDelegate.swift in Sources */,
 				7ACA844A254BEAE6000FCD3C /* ExtensionDataManager.swift in Sources */,
+				7AEA52EA2554C29E00A624FE /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,8 +264,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AEA52DC2554B7A200A624FE /* PlayerObserverProtocol.swift in Sources */,
+				7AEA52EB2554C29E00A624FE /* Extensions.swift in Sources */,
 				7ACA841D254BC330000FCD3C /* ShareViewController.swift in Sources */,
 				7ACA844B254BEAE6000FCD3C /* ExtensionDataManager.swift in Sources */,
+				7AEA52E52554B9F400A624FE /* AudioPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

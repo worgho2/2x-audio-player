@@ -10,7 +10,7 @@ import Social
 import MobileCoreServices
 import AVFoundation
 
-class ShareViewController: UIViewController, ExtensionDataLoader {
+class ShareViewController: UIViewController, PlayerObserverProtocol {
     
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var spacerView: UIView!
@@ -24,43 +24,18 @@ class ShareViewController: UIViewController, ExtensionDataLoader {
     @IBOutlet weak var currentTimeLabel: UILabel!
     @IBOutlet weak var timeSlider: UISlider!
     
-    var audioPlayer: AVAudioPlayer?
+    var player = AudioPlayer.instance
     
-    var rate: Float = 1.0
+    var currentRateState: RateButtonState = .normal
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ExtensionDataManager.instance.subcribe(self)
-        setupView()
-        loadFileFomAttachments()
+        setViewState(.initial)
+        loadAudioFilesFromAttachments()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        audioPlayer?.stop()
-        audioPlayer?.currentTime = 0
-    }
-    
-    func setupView() {
-        view.backgroundColor = .clear
-        view.isOpaque = false
-        
-        spacerView.clipsToBounds = true
-        spacerView.layer.cornerRadius = 0.45 * min(spacerView.frame.width, spacerView.frame.height)
-        
-        contentView.clipsToBounds = true
-        contentView.layer.cornerRadius = 0.188 * min(contentView.frame.width, contentView.frame.height)
-        contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        
-
-        rateButton.setTitle("1x", for: .normal)
-        
-        durationLabel.text = "00:00"
-        
-        currentTimeLabel.text = "00:00"
-    }
-    
-    func loadFileFomAttachments() {
+    //MARK: - Loading
+    func loadAudioFilesFromAttachments() {
         let attachments = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
         let contentType = kUTTypeData as String
         
@@ -68,78 +43,205 @@ class ShareViewController: UIViewController, ExtensionDataLoader {
             if provider.hasItemConformingToTypeIdentifier(contentType) {
                 provider.loadItem(forTypeIdentifier: contentType, options: nil) { [unowned self] (data, error) in
                     guard error == nil else { return }
-                    setupAudioPlayer(trackURL: data as! URL)
+                    player.addListener(self)
+                    player.prepareToPlay(contentsOf: data as! URL)
                 }
             }
         }
     }
     
-    func setupAudioPlayer(trackURL: URL) {
-        audioPlayer = try! AVAudioPlayer(contentsOf: trackURL)
-        audioPlayer?.delegate = self
-        audioPlayer?.enableRate = true
-        audioPlayer?.prepareToPlay()
+    //MARK: - PlayerObserverProtocol
+    func setup() {
+        setTimerSliderRange(min: 0, max: player.duration)
+        setDurationLabelState(player.duration.asFormatedString())
     }
     
     func update() {
-        self.timeSlider.minimumValue = 0
-        self.timeSlider.maximumValue = Float(audioPlayer?.duration ?? 0)
-        self.timeSlider.value = Float(audioPlayer?.currentTime ?? 0)
-        self.durationLabel.text = audioPlayer?.duration.toReadable()
-        self.currentTimeLabel.text = audioPlayer?.currentTime.toReadable()
+        setCurrentTimeLabelState(player.currentTime.asFormatedString())
+        setTimerSliderState(player.currentTime)
+    }
+
+    func didFinishPlaying() {
+        setPlayButtonState(.play)
     }
     
+    //MARK: - View Components State
+    func setViewState(_ state: ViewState) {
+        switch state {
+        case .initial:
+            DispatchQueue.main.async {
+                
+                self.view.backgroundColor = .clear
+                self.view.isOpaque = false
+                
+                self.spacerView.clipsToBounds = true
+                self.spacerView.layer.cornerRadius = 0.45 * min(self.spacerView.frame.width, self.spacerView.frame.height)
+                
+                self.contentView.clipsToBounds = true
+                self.contentView.layer.cornerRadius = 0.188 * min(self.contentView.frame.width, self.contentView.frame.height)
+                self.contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            }
+            
+            setDurationLabelState(.initial)
+            setCurrentTimeLabelState(.initial)
+            setPlayButtonState(.play)
+            setRateButtonState(.fast)
+            
+            break
+        }
+        
+    }
+    
+    func setPlayButtonState(_ state: PlayButtonState) {
+        DispatchQueue.main.async {
+            self.playButton.setBackgroundImage(UIImage(systemName: state.rawValue), for: .normal)
+        }
+    }
+    
+    func setRateButtonState(_ state: RateButtonState) {
+        DispatchQueue.main.async {
+            self.rateButton.setTitle("\(state.rawValue)x", for: .normal)
+        }
+    }
+    
+    func setGoBackwardButtonState(_ state: GoBackwardButtonState) {
+        DispatchQueue.main.async {
+            self.goBackButton.setBackgroundImage(UIImage(systemName: state.rawValue), for: .normal)
+        }
+    }
+    
+    func setGoForwardButtonState(_ state: GoForwardButtonState) {
+        DispatchQueue.main.async {
+            self.goBackButton.setBackgroundImage(UIImage(systemName: state.rawValue), for: .normal)
+        }
+    }
+    
+    func setDurationLabelState(_ state: DurationLabelState) {
+        DispatchQueue.main.async {
+            self.durationLabel.text = state.rawValue
+        }
+    }
+    
+    func setDurationLabelState(_ text: String) {
+        DispatchQueue.main.async {
+            self.durationLabel.text = text
+        }
+    }
+    
+    func setCurrentTimeLabelState(_ state: DurationLabelState) {
+        DispatchQueue.main.async {
+            self.currentTimeLabel.text = state.rawValue
+        }
+    }
+    
+    func setCurrentTimeLabelState(_ text: String) {
+        DispatchQueue.main.async {
+            self.currentTimeLabel.text = text
+        }
+    }
+    
+    func setTimerSliderState(_ value: Float) {
+        DispatchQueue.main.async {
+            self.timeSlider.value = value
+        }
+    }
+    
+    func setTimerSliderRange(min: Float, max: Float) {
+        DispatchQueue.main.async {
+            self.timeSlider.minimumValue = min
+            self.timeSlider.maximumValue = max
+        }
+    }
+    
+    //MARK: - View Components Action
+    
     @IBAction func onPlayButton(_ sender: Any) {
-        if audioPlayer?.isPlaying == true {
-            audioPlayer?.stop()
-            playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+        if player.isPlaying {
+            player.pause()
+            setPlayButtonState(.play)
         } else {
-            audioPlayer?.play()
-            playButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: .normal)
+            player.play()
+            setPlayButtonState(.pause)
         }
     }
     
     @IBAction func onGoBackButton(_ sender: Any) {
-        audioPlayer?.currentTime -= 15
+        player.goBackward(15)
     }
     
     @IBAction func onGoForwardButton(_ sender: Any) {
-        audioPlayer?.currentTime += 15
+        player.goForward(15)
     }
     
     @IBAction func onRateButton(_ sender: Any) {
-        if rate == 1 {
-            rate = 1.5
-            rateButton.setTitle("1.5x", for: .normal)
-        } else if rate == 1.5 {
-            rate = 2.0
-            rateButton.setTitle("2x", for: .normal)
-        } else if rate == 2.0 {
-            rate = 1.0
-            rateButton.setTitle("1x", for: .normal)
-        }
-        audioPlayer?.rate = rate
+        currentRateState = currentRateState.next()
+        player.setRate(rate: currentRateState.rawValue)
+        setRateButtonState(currentRateState)
     }
+    
+    var sliderTimer: Timer?
+    
     
     @IBAction func onTimeSlider(_ sender: Any) {
+        sliderTimer?.invalidate()
+        
+        player.pause()
+        player.currentTime = timeSlider.value
+        setCurrentTimeLabelState(timeSlider.value.asFormatedString())
+        
+        sliderTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false, block: { (t) in
+            self.player.play()
+            self.setPlayButtonState(.pause)
+        })
+        //MARK: - TODO
     }
-    
-    
-    
 }
 
-extension ShareViewController: AVAudioPlayerDelegate {
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+enum TimeSliderState {
+    case pressed
+    case normal
+}
+
+enum ViewState {
+    case initial
+}
+
+enum DurationLabelState: String {
+    case initial = "--:--"
+    case zero = "00:00"
+}
+
+enum CurrentTimeLabelState: String {
+    case initial = "--:--"
+    case zero = "00:00"
+}
+
+enum GoBackwardButtonState: String {
+    case initial = "gobackward.15"
+}
+
+enum GoForwardButtonState: String {
+    case initial = "goforward.15"
+}
+
+enum RateButtonState: Float {
+    case normal = 1
+    case nice = 1.4
+    case fast = 1.8
+    case faster = 2.2
+    
+    func next() -> RateButtonState {
+        switch self {
+        case .normal: return .nice
+        case .nice: return .fast
+        case .fast: return .faster
+        case .faster: return .normal
+        }
     }
 }
 
-extension TimeInterval {
-    func toReadable() -> String {
-        var x = Int(self)
-        let seconds = x % 60
-        x /= 60
-        let minutes = x % 60
-        return (minutes < 10 ? "0\(minutes)" : "\(minutes)") + ":" + (seconds < 10 ? "0\(seconds)" : "\(seconds)")
-    }
+
+enum PlayButtonState: String {
+    case play = "play.fill"
+    case pause = "pause.fill"
 }

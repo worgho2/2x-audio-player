@@ -12,7 +12,6 @@
         <!--Share View Controller-->
         <scene sceneID="ceB-am-kn3">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CEy-Cv-SGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController modalTransitionStyle="crossDissolve" id="j1y-V4-xli" customClass="ShareViewController" customModule="extension" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" id="wbc-yd-nQP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -26,7 +25,7 @@
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L4m-5K-hRU">
                                                 <rect key="frame" x="165.5" y="6.5" width="83" height="5"/>
-                                                <color key="backgroundColor" red="0.76862745098039209" green="0.76862745098039209" blue="0.77647058823529413" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" systemColor="separatorColor"/>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -207,7 +206,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="zwJ-TF-Gf4" firstAttribute="height" secondItem="xzL-sM-TMI" secondAttribute="height" multiplier="0.3" id="0Wb-l7-Ufk"/>
                                             <constraint firstItem="DI3-gm-R2Z" firstAttribute="height" secondItem="xzL-sM-TMI" secondAttribute="height" multiplier="0.15" id="6Iq-W2-fbW"/>
@@ -224,7 +223,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="xzL-sM-TMI" firstAttribute="top" secondItem="5mH-Ic-MBg" secondAttribute="bottom" id="0OI-L6-jcJ"/>
                                     <constraint firstItem="5mH-Ic-MBg" firstAttribute="top" secondItem="jqe-k1-0hT" secondAttribute="top" id="692-VJ-dnT"/>
@@ -258,6 +257,7 @@
                         <outlet property="timeSlider" destination="6G0-48-p7n" id="c9B-N6-ipi"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CEy-Cv-SGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-275.36231884057975" y="118.52678571428571"/>
         </scene>
@@ -268,6 +268,12 @@
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="separatorColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
