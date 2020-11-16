@@ -39,11 +39,10 @@ final class TXVideoManager: VideoManager {
     }
    
     // MARK: - Helper methods
-    private func playVideo() {
+    func playVideo() {
         
         guard canPlay
         else { return }
-        
         let player = AVPlayer(url: url)
         player.isMuted = true
         canPlay = false

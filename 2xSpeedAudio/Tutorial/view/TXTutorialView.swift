@@ -8,18 +8,23 @@ final class TXTutorialView: UIView, VideoPlayer {
     
     private lazy var videoView: TXVideoView = {
         let view = TXVideoView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private lazy var titleLabel: UILabel = {
         let view = UILabel()
+        view.font = .boldSystemFont(ofSize: 20)
+        view.textColor = .label
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private lazy var descriptionLabel: UILabel = {
         let view = UILabel()
+        view.font = .systemFont(ofSize: 14, weight: .light)
+        view.numberOfLines = 0
+        view.textColor = .label
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -44,6 +49,8 @@ final class TXTutorialView: UIView, VideoPlayer {
         descriptionLabel.text = description
         addSubviews()
         constraintSubviews()
+        
+        backgroundColor = .systemBackground
     }
     
     // MARK: - UIView lifecycle
