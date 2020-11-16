@@ -10,13 +10,14 @@ final class TXTabBarController: UITabBarController {
     }
     
     // MARK: - Initalization
-    init() {
-        super.init(nibName: nil, bundle: nil)
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
         initTabBar(with: [
             .init(
                 title: "Home",
                 image:UIImage(systemName: "house.fill")!,
-                viewController: TXTutorialViewController()
+                viewController: UINavigationController(rootViewController: TXTutorialViewController())
             ),
             .init(
                 title: "Settings",
@@ -36,12 +37,7 @@ final class TXTabBarController: UITabBarController {
                 selectedImage: item.image
             )
         }
-        
         viewControllers = items.map { $0.viewController }
     }
     
-    // MARK: - Unused
-    required init?(coder: NSCoder) {
-        fatalError("This class is not supposed to be instantiated from the storyboard")
-    }
 }

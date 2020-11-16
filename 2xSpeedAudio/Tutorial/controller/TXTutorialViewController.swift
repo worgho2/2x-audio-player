@@ -41,6 +41,7 @@ class TXTutorialViewController: UIViewController, UIPageViewControllerDataSource
     // MARK: - ViewController Lifecycle methods
     override func viewDidLoad() {
         view.backgroundColor = .systemBackground
+        setupNavigationBar()
         setupPageControl()
     }
     // MARK: - Setup methods
@@ -78,6 +79,15 @@ class TXTutorialViewController: UIViewController, UIPageViewControllerDataSource
             animated: true,
             completion: nil
         )
+    }
+    private func setupNavigationBar() {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        guard let bar = navigationController?.navigationBar
+        else { return }
+        bar.prefersLargeTitles = true
+        bar.isTranslucent = true
+        title = "Tutorial"
+        
     }
     
     // MARK: - UIPageViewControllerDelegate & DataSource methods
