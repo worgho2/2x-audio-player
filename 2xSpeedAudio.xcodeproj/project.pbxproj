@@ -41,7 +41,7 @@
 		7AEA52EA2554C29E00A624FE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA52E92554C29E00A624FE /* Extensions.swift */; };
 		D727623E25620179001707F5 /* TXTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D727623D25620179001707F5 /* TXTabBarController.swift */; };
 		D7276242256201AD001707F5 /* TXTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7276241256201AD001707F5 /* TXTutorialView.swift */; };
-		D7276247256207C3001707F5 /* start.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = D7276246256207C3001707F5 /* start.MP4 */; };
+		D7276247256207C3001707F5 /* demo.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = D7276246256207C3001707F5 /* demo.MP4 */; };
 		D727625225620EE5001707F5 /* TXTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D727625125620EE5001707F5 /* TXTutorialViewController.swift */; };
 		D727625E25620F67001707F5 /* TXVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D727625D25620F67001707F5 /* TXVideoView.swift */; };
 		D727626225620FB6001707F5 /* TXVideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D727626125620FB6001707F5 /* TXVideoManager.swift */; };
@@ -106,7 +106,7 @@
 		7AEA52E92554C29E00A624FE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D727623D25620179001707F5 /* TXTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXTabBarController.swift; sourceTree = "<group>"; };
 		D7276241256201AD001707F5 /* TXTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXTutorialView.swift; sourceTree = "<group>"; };
-		D7276246256207C3001707F5 /* start.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = start.MP4; path = ../../../../../Downloads/start.MP4; sourceTree = "<group>"; };
+		D7276246256207C3001707F5 /* demo.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = demo.MP4; path = ../../../../../Downloads/demo.MP4; sourceTree = "<group>"; };
 		D727625125620EE5001707F5 /* TXTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXTutorialViewController.swift; sourceTree = "<group>"; };
 		D727625D25620F67001707F5 /* TXVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXVideoView.swift; sourceTree = "<group>"; };
 		D727626125620FB6001707F5 /* TXVideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXVideoManager.swift; sourceTree = "<group>"; };
@@ -301,7 +301,7 @@
 		D7276245256207B4001707F5 /* movies */ = {
 			isa = PBXGroup;
 			children = (
-				D7276246256207C3001707F5 /* start.MP4 */,
+				D7276246256207C3001707F5 /* demo.MP4 */,
 			);
 			path = movies;
 			sourceTree = "<group>";
@@ -400,7 +400,7 @@
 			files = (
 				7AE80F9D2561C759000E22DA /* BasicTableViewCell.xib in Resources */,
 				7A115EEB2561EC1F00A4EF73 /* demo-track.mp3 in Resources */,
-				D7276247256207C3001707F5 /* start.MP4 in Resources */,
+				D7276247256207C3001707F5 /* demo.MP4 in Resources */,
 				7ACA840C254BC20C000FCD3C /* LaunchScreen.storyboard in Resources */,
 				7A115EDD2561E1C300A4EF73 /* Licenses.storyboard in Resources */,
 				7ACA8409254BC20C000FCD3C /* Assets.xcassets in Resources */,
