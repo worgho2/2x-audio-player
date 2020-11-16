@@ -21,7 +21,12 @@ final class TXTabBarController: UITabBarController {
                         url: url,
                         title: "Start",
                         description: "this is the fist time this is happening"
-                ))
+                )),
+            .init(
+                title: "Settings",
+                image: UIImage(systemName: "gear")!,
+                viewController: UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()!
+            )
         ])
     }
     

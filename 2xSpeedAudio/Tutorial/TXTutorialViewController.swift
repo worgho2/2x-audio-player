@@ -31,15 +31,14 @@ final class TXTutorialViewController: UIViewController, VideoManagerDelegate {
         videoManager.setup()
     }
     
-    
     // MARK: - VideoManagerDelegate
     func play(using player: AVPlayer) {
         tutorialView.playVideo(using: player)
     }
+    
     // MARK: - Unused
     required init?(coder: NSCoder) {
         fatalError("This class should only be used programatically")
     }
-    
 }
 
