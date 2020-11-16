@@ -39,6 +39,9 @@
 		7AEA52DB2554B7A200A624FE /* PlayerObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA52DA2554B7A200A624FE /* PlayerObserverProtocol.swift */; };
 		7AEA52E42554B9F400A624FE /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA52E32554B9F400A624FE /* AudioPlayer.swift */; };
 		7AEA52EA2554C29E00A624FE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA52E92554C29E00A624FE /* Extensions.swift */; };
+		D727623E25620179001707F5 /* TXTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D727623D25620179001707F5 /* TXTabBarController.swift */; };
+		D7276242256201AD001707F5 /* TXTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7276241256201AD001707F5 /* TXTutorialViewController.swift */; };
+		D7276247256207C3001707F5 /* start.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = D7276246256207C3001707F5 /* start.MP4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +101,9 @@
 		7AEA52DA2554B7A200A624FE /* PlayerObserverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObserverProtocol.swift; sourceTree = "<group>"; };
 		7AEA52E32554B9F400A624FE /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		7AEA52E92554C29E00A624FE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D727623D25620179001707F5 /* TXTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXTabBarController.swift; sourceTree = "<group>"; };
+		D7276241256201AD001707F5 /* TXTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXTutorialViewController.swift; sourceTree = "<group>"; };
+		D7276246256207C3001707F5 /* start.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = start.MP4; path = ../../../../../Downloads/start.MP4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +191,7 @@
 		7ACA83FE254BC20A000FCD3C /* 2xSpeedAudio */ = {
 			isa = PBXGroup;
 			children = (
+				D727623C25620162001707F5 /* pastre */,
 				7ACA83FF254BC20A000FCD3C /* AppDelegate.swift */,
 				7ACA8401254BC20A000FCD3C /* SceneDelegate.swift */,
 				7AE80F692561A446000E22DA /* Main */,
@@ -284,6 +291,24 @@
 			path = "Audio Player";
 			sourceTree = "<group>";
 		};
+		D727623C25620162001707F5 /* pastre */ = {
+			isa = PBXGroup;
+			children = (
+				D7276245256207B4001707F5 /* movies */,
+				D727623D25620179001707F5 /* TXTabBarController.swift */,
+				D7276241256201AD001707F5 /* TXTutorialViewController.swift */,
+			);
+			path = pastre;
+			sourceTree = "<group>";
+		};
+		D7276245256207B4001707F5 /* movies */ = {
+			isa = PBXGroup;
+			children = (
+				D7276246256207C3001707F5 /* start.MP4 */,
+			);
+			path = movies;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -366,6 +391,7 @@
 			files = (
 				7AE80F9D2561C759000E22DA /* BasicTableViewCell.xib in Resources */,
 				7A115EEB2561EC1F00A4EF73 /* demo-track.mp3 in Resources */,
+				D7276247256207C3001707F5 /* start.MP4 in Resources */,
 				7ACA840C254BC20C000FCD3C /* LaunchScreen.storyboard in Resources */,
 				7A115EDD2561E1C300A4EF73 /* Licenses.storyboard in Resources */,
 				7ACA8409254BC20C000FCD3C /* Assets.xcassets in Resources */,
@@ -408,6 +434,8 @@
 				7ACA8402254BC20A000FCD3C /* SceneDelegate.swift in Sources */,
 				7AEA52EA2554C29E00A624FE /* Extensions.swift in Sources */,
 				7A29EF522561D7D3003A3AB4 /* AddExtensionToFavorites.swift in Sources */,
+				D727623E25620179001707F5 /* TXTabBarController.swift in Sources */,
+				D7276242256201AD001707F5 /* TXTutorialViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,7 +612,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 373U5VR954;
+				DEVELOPMENT_TEAM = QM43B7QRF9;
 				INFOPLIST_FILE = 2xSpeedAudio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -606,7 +634,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 373U5VR954;
+				DEVELOPMENT_TEAM = QM43B7QRF9;
 				INFOPLIST_FILE = 2xSpeedAudio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
