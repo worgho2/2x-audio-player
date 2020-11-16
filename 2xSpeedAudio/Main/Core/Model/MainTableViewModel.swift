@@ -13,7 +13,7 @@ class MainTableViewModel {
     
     init() {
         self.sections = [
-            TutorialSection(),
+//            TutorialSection(),
             HelpSection()
         ]
     }
