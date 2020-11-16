@@ -40,8 +40,11 @@
 		7AEA52E42554B9F400A624FE /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA52E32554B9F400A624FE /* AudioPlayer.swift */; };
 		7AEA52EA2554C29E00A624FE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA52E92554C29E00A624FE /* Extensions.swift */; };
 		D727623E25620179001707F5 /* TXTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D727623D25620179001707F5 /* TXTabBarController.swift */; };
-		D7276242256201AD001707F5 /* TXTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7276241256201AD001707F5 /* TXTutorialViewController.swift */; };
+		D7276242256201AD001707F5 /* TXTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7276241256201AD001707F5 /* TXTutorialView.swift */; };
 		D7276247256207C3001707F5 /* start.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = D7276246256207C3001707F5 /* start.MP4 */; };
+		D727625225620EE5001707F5 /* TXTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D727625125620EE5001707F5 /* TXTutorialViewController.swift */; };
+		D727625E25620F67001707F5 /* TXVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D727625D25620F67001707F5 /* TXVideoView.swift */; };
+		D727626225620FB6001707F5 /* TXVideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D727626125620FB6001707F5 /* TXVideoManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,8 +105,11 @@
 		7AEA52E32554B9F400A624FE /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		7AEA52E92554C29E00A624FE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D727623D25620179001707F5 /* TXTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXTabBarController.swift; sourceTree = "<group>"; };
-		D7276241256201AD001707F5 /* TXTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXTutorialViewController.swift; sourceTree = "<group>"; };
+		D7276241256201AD001707F5 /* TXTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXTutorialView.swift; sourceTree = "<group>"; };
 		D7276246256207C3001707F5 /* start.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = start.MP4; path = ../../../../../Downloads/start.MP4; sourceTree = "<group>"; };
+		D727625125620EE5001707F5 /* TXTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXTutorialViewController.swift; sourceTree = "<group>"; };
+		D727625D25620F67001707F5 /* TXVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXVideoView.swift; sourceTree = "<group>"; };
+		D727626125620FB6001707F5 /* TXVideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXVideoManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,7 +197,7 @@
 		7ACA83FE254BC20A000FCD3C /* 2xSpeedAudio */ = {
 			isa = PBXGroup;
 			children = (
-				D727623C25620162001707F5 /* pastre */,
+				D727625025620ED2001707F5 /* Tutorial */,
 				7ACA83FF254BC20A000FCD3C /* AppDelegate.swift */,
 				7ACA8401254BC20A000FCD3C /* SceneDelegate.swift */,
 				7AE80F692561A446000E22DA /* Main */,
@@ -218,6 +224,7 @@
 		7AE80F692561A446000E22DA /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				D727623D25620179001707F5 /* TXTabBarController.swift */,
 				7AE80F952561C4EE000E22DA /* Core */,
 				7AE80F7D2561B22D000E22DA /* Help */,
 				7AE80F7C2561B227000E22DA /* Tutorial */,
@@ -291,22 +298,24 @@
 			path = "Audio Player";
 			sourceTree = "<group>";
 		};
-		D727623C25620162001707F5 /* pastre */ = {
-			isa = PBXGroup;
-			children = (
-				D7276245256207B4001707F5 /* movies */,
-				D727623D25620179001707F5 /* TXTabBarController.swift */,
-				D7276241256201AD001707F5 /* TXTutorialViewController.swift */,
-			);
-			path = pastre;
-			sourceTree = "<group>";
-		};
 		D7276245256207B4001707F5 /* movies */ = {
 			isa = PBXGroup;
 			children = (
 				D7276246256207C3001707F5 /* start.MP4 */,
 			);
 			path = movies;
+			sourceTree = "<group>";
+		};
+		D727625025620ED2001707F5 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				D7276245256207B4001707F5 /* movies */,
+				D727625125620EE5001707F5 /* TXTutorialViewController.swift */,
+				D727625D25620F67001707F5 /* TXVideoView.swift */,
+				D7276241256201AD001707F5 /* TXTutorialView.swift */,
+				D727626125620FB6001707F5 /* TXVideoManager.swift */,
+			);
+			path = Tutorial;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -417,8 +426,10 @@
 			files = (
 				7A115ED92561E1B800A4EF73 /* LicensesViewController.swift in Sources */,
 				7A29EF3A2561D4AE003A3AB4 /* MainTableViewSection.swift in Sources */,
+				D727625225620EE5001707F5 /* TXTutorialViewController.swift in Sources */,
 				7AE80F562561A15A000E22DA /* MainTableViewController.swift in Sources */,
 				7AE80F732561A749000E22DA /* MainTableViewModel.swift in Sources */,
+				D727626225620FB6001707F5 /* TXVideoManager.swift in Sources */,
 				7AE80F832561BFEA000E22DA /* HelpSection.swift in Sources */,
 				7A29EF482561D58E003A3AB4 /* TutorialSection.swift in Sources */,
 				7AE80F882561C0AC000E22DA /* PrivacyPolicyRow.swift in Sources */,
@@ -429,13 +440,14 @@
 				7A29EF362561D4AD003A3AB4 /* MainTableViewRow.swift in Sources */,
 				7A29EF302561D3F8003A3AB4 /* LicensesRow.swift in Sources */,
 				7ACA8400254BC20A000FCD3C /* AppDelegate.swift in Sources */,
+				D727625E25620F67001707F5 /* TXVideoView.swift in Sources */,
 				7A818A812561F77900ACD1C8 /* BasicRow.swift in Sources */,
 				7AEA52E42554B9F400A624FE /* AudioPlayer.swift in Sources */,
 				7ACA8402254BC20A000FCD3C /* SceneDelegate.swift in Sources */,
 				7AEA52EA2554C29E00A624FE /* Extensions.swift in Sources */,
 				7A29EF522561D7D3003A3AB4 /* AddExtensionToFavorites.swift in Sources */,
 				D727623E25620179001707F5 /* TXTabBarController.swift in Sources */,
-				D7276242256201AD001707F5 /* TXTutorialViewController.swift in Sources */,
+				D7276242256201AD001707F5 /* TXTutorialView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
