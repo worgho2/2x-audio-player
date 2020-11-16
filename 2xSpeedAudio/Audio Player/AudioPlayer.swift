@@ -7,15 +7,23 @@
 
 import Foundation
 import AVFoundation
+import UIKit
 
 class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     static let instance = AudioPlayer()
-
+    
     private var playerObserverListeners = [PlayerObserverProtocol]()
     private var player: AVAudioPlayer?
     
     private override init() {
         super.init()
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback)
+        } catch(let error) {
+            print(error.localizedDescription)
+        }
+        
         Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true, block: { (t) in
             self.playerObserverListeners.forEach({ $0.update() })
         })

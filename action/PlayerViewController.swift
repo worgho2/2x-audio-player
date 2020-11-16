@@ -1,5 +1,5 @@
 //
-//  ShareViewController.swift
+//  PlayerViewController.swift
 //  extension
 //
 //  Created by otavio on 30/10/20.
@@ -10,7 +10,7 @@ import Social
 import MobileCoreServices
 import AVFoundation
 
-class ShareViewController: UIViewController, PlayerObserverProtocol {
+class PlayerViewController: UIViewController, PlayerObserverProtocol {
     
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var spacerView: UIView!
@@ -26,12 +26,21 @@ class ShareViewController: UIViewController, PlayerObserverProtocol {
     
     var player = AudioPlayer.instance
     
-    var currentRateState: RateButtonState = .normal
+    var currentRateState: RateButtonState = .fast
+    
+    var sliderTimer: Timer?
+    
+    //MARK: - Application Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewState(.initial)
         loadAudioFilesFromAttachments()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.extensionContext?.cancelRequest(withError: Error.self as! Error)
     }
     
     //MARK: - Loading
@@ -45,9 +54,35 @@ class ShareViewController: UIViewController, PlayerObserverProtocol {
                     guard error == nil else { return }
                     player.addListener(self)
                     player.prepareToPlay(contentsOf: data as! URL)
+                    player.setRate(rate: currentRateState.rawValue)
                 }
             }
         }
+//        for item in self.extensionContext!.inputItems as! [NSExtensionItem] {
+//            for provider in item.attachments! {
+//                if provider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
+//                    // This is an image. We'll load it, then place it in our image view.
+//                    weak var weakImageView = self.imageView
+//                    provider.loadItem(forTypeIdentifier: kUTTypeImage as String, options: nil, completionHandler: { (imageURL, error) in
+//                        OperationQueue.main.addOperation {
+//                            if let strongImageView = weakImageView {
+//                                if let imageURL = imageURL as? URL {
+//                                    strongImageView.image = UIImage(data: try! Data(contentsOf: imageURL))
+//                                }
+//                            }
+//                        }
+//                    })
+//
+//                    imageFound = true
+//                    break
+//                }
+//            }
+//
+//            if (imageFound) {
+//                // We only handle one image, so stop looking for more.
+//                break
+//            }
+//        }
     }
     
     //MARK: - PlayerObserverProtocol
@@ -179,8 +214,6 @@ class ShareViewController: UIViewController, PlayerObserverProtocol {
         setRateButtonState(currentRateState)
     }
     
-    var sliderTimer: Timer?
-    
     
     @IBAction func onTimeSlider(_ sender: Any) {
         sliderTimer?.invalidate()
@@ -195,11 +228,6 @@ class ShareViewController: UIViewController, PlayerObserverProtocol {
         })
         //MARK: - TODO
     }
-}
-
-enum TimeSliderState {
-    case pressed
-    case normal
 }
 
 enum ViewState {

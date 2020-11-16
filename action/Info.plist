@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>2x </string>
+	<string>Listen with 2x Speed Audio</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
@@ -31,14 +31,24 @@
     SUBQUERY (
         $extensionItem.attachments,
         $attachment,
-        ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;public.audio&quot;
+        ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.audio"
     ).@count == $extensionItem.attachments.@count
 ).@count &gt;= 1</string>
+			<key>NSExtensionServiceAllowsFinderPreviewItem</key>
+			<true/>
+			<key>NSExtensionServiceAllowsTouchBarItem</key>
+			<true/>
+			<key>NSExtensionServiceFinderPreviewIconName</key>
+			<string>NSActionTemplate</string>
+			<key>NSExtensionServiceTouchBarBezelColorName</key>
+			<string>TouchBarBezel</string>
+			<key>NSExtensionServiceTouchBarIconName</key>
+			<string>NSActionTemplate</string>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
-		<string>MainInterface</string>
+		<string>Player</string>
 		<key>NSExtensionPointIdentifier</key>
-		<string>com.apple.share-services</string>
+		<string>com.apple.ui-services</string>
 	</dict>
 </dict>
 </plist>
