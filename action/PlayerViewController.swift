@@ -32,6 +32,10 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol, Transcript
     @IBOutlet weak var currentTimeLabel: UILabel!
     @IBOutlet weak var timeSlider: UISlider!
     
+    @IBOutlet weak var transcriptionTextView: UITextView!
+    @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var loadingActivityIndicator: UIActivityIndicatorView!
+    
     var player = AudioPlayer.instance
     
     var currentRateState: RateButtonState = .fast
@@ -99,9 +103,25 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol, Transcript
     
     // MARK: - Transcription
     private func transcribe(from url: URL) {
-        transcriptor.transcribe(from: url) {
-            txLog("GOT A RESPONSE ON VC!!!", $0, $1)
+        startLoadingTranscription()
+        transcriptor.transcribe(from: url) { [weak self] result, error in
+            self?.stopLoadingTranscription()
+            txLog("got a result!", result)
+            guard let result = result else {
+                return // TODO present error
+            }
+            self?.transcriptionTextView.text = result
         }
+    }
+    
+    func startLoadingTranscription() {
+        loadingView.isHidden = false
+        loadingActivityIndicator.startAnimating()
+    }
+    
+    func stopLoadingTranscription() {
+        loadingView.isHidden = true
+        loadingActivityIndicator.stopAnimating()
     }
     
     //MARK: - View Components State

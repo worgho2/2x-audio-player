@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1210"
+   LastUpgradeVersion = "1220"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -15,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7ACA8419254BC330000FCD3C"
-               BuildableName = "extension.appex"
-               BlueprintName = "extension"
+               BlueprintIdentifier = "7AE80F0625615B84000E22DA"
+               BuildableName = "action.appex"
+               BlueprintName = "action"
                ReferencedContainer = "container:2xSpeedAudio.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
