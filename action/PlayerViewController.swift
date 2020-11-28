@@ -30,10 +30,13 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
     
     var sliderTimer: Timer?
     
+    private let transcriptor: Transcriptor = DefaultTranscriptor()
+    
     //MARK: - Application Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setViewState(.initial)
         loadAudioFilesFromAttachments()
     }
@@ -49,40 +52,22 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
         let contentType = kUTTypeData as String
         
         for provider in attachments {
-            if provider.hasItemConformingToTypeIdentifier(contentType) {
-                provider.loadItem(forTypeIdentifier: contentType, options: nil) { [unowned self] (data, error) in
-                    guard error == nil else { return }
-                    player.addListener(self)
-                    player.prepareToPlay(contentsOf: data as! URL)
-                    player.setRate(rate: currentRateState.rawValue)
-                }
+            guard provider.hasItemConformingToTypeIdentifier(contentType)
+            else { continue }
+            provider.loadItem(
+                forTypeIdentifier: contentType,
+                options: nil
+            ) { [weak self] (data, error) in
+                guard let self = self,
+                      let url = data as? URL,
+                      error == nil
+                else { return }
+                self.transcribe(from: url)
+                self.player.addListener(self)
+                self.player.prepareToPlay(contentsOf: url)
+                self.player.setRate(rate: self.currentRateState.rawValue)
             }
         }
-//        for item in self.extensionContext!.inputItems as! [NSExtensionItem] {
-//            for provider in item.attachments! {
-//                if provider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
-//                    // This is an image. We'll load it, then place it in our image view.
-//                    weak var weakImageView = self.imageView
-//                    provider.loadItem(forTypeIdentifier: kUTTypeImage as String, options: nil, completionHandler: { (imageURL, error) in
-//                        OperationQueue.main.addOperation {
-//                            if let strongImageView = weakImageView {
-//                                if let imageURL = imageURL as? URL {
-//                                    strongImageView.image = UIImage(data: try! Data(contentsOf: imageURL))
-//                                }
-//                            }
-//                        }
-//                    })
-//
-//                    imageFound = true
-//                    break
-//                }
-//            }
-//
-//            if (imageFound) {
-//                // We only handle one image, so stop looking for more.
-//                break
-//            }
-//        }
     }
     
     //MARK: - PlayerObserverProtocol
@@ -98,6 +83,11 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
 
     func didFinishPlaying() {
         setPlayButtonState(.play)
+    }
+    
+    // MARK: - Transcription
+    private func transcribe(from url: URL) {
+        transcriptor.transcribe(from: url)
     }
     
     //MARK: - View Components State

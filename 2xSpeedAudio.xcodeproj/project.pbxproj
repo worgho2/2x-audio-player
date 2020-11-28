@@ -46,6 +46,7 @@
 		D727626225620FB6001707F5 /* TXVideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D727626125620FB6001707F5 /* TXVideoManager.swift */; };
 		D77E23782562154E00454A92 /* TXTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E23772562154E00454A92 /* TXTutorialViewController.swift */; };
 		D77E237C2562176500454A92 /* demo.MP4 in Resources */ = {isa = PBXBuildFile; fileRef = D77E237B2562176500454A92 /* demo.MP4 */; };
+		D7AE567C2572C7C90035D113 /* Transcriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE567B2572C7C90035D113 /* Transcriptor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		D727626125620FB6001707F5 /* TXVideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXVideoManager.swift; sourceTree = "<group>"; };
 		D77E23772562154E00454A92 /* TXTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXTutorialViewController.swift; sourceTree = "<group>"; };
 		D77E237B2562176500454A92 /* demo.MP4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = demo.MP4; sourceTree = "<group>"; };
+		D7AE567B2572C7C90035D113 /* Transcriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcriptor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +221,7 @@
 				7ACA841E254BC330000FCD3C /* Player.storyboard */,
 				7AE80F0925615B84000E22DA /* Media.xcassets */,
 				7AE80F1025615B84000E22DA /* Info.plist */,
+				D7AE567B2572C7C90035D113 /* Transcriptor.swift */,
 			);
 			path = action;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AE80F3625615E4C000E22DA /* Extensions.swift in Sources */,
+				D7AE567C2572C7C90035D113 /* Transcriptor.swift in Sources */,
 				7AE80F2A25615E24000E22DA /* PlayerViewController.swift in Sources */,
 				7AE80F2E25615E46000E22DA /* PlayerObserverProtocol.swift in Sources */,
 				7AE80F3225615E49000E22DA /* AudioPlayer.swift in Sources */,
