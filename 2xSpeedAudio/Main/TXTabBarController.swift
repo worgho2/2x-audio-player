@@ -1,4 +1,5 @@
 import UIKit
+import Speech
 
 final class TXTabBarController: UITabBarController {
     
@@ -10,7 +11,6 @@ final class TXTabBarController: UITabBarController {
     }
     
     // MARK: - Initalization
-
     override func viewDidLoad() {
         super.viewDidLoad()
         initTabBar(with: [

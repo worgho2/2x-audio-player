@@ -10,7 +10,15 @@ import Social
 import MobileCoreServices
 import AVFoundation
 
-class PlayerViewController: UIViewController, PlayerObserverProtocol {
+public func txLog(_ message: Any...) {
+    NSLog("[asdqwe] \(message)")
+}
+class PlayerViewController: UIViewController, PlayerObserverProtocol, TranscriptorDelegate {
+    // MARK: - TranscriptorDelegate methods
+    func onRecognitionCompleted(result: String?, error: Error?) {
+       txLog("RECOGNITION COMPLETED!", result, error)
+    }
+    
     
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var spacerView: UIView!
@@ -30,15 +38,19 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
     
     var sliderTimer: Timer?
     
-    private let transcriptor: Transcriptor = DefaultTranscriptor()
+    private var transcriptor: Transcriptor = DefaultTranscriptor()
     
     //MARK: - Application Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setViewState(.initial)
         loadAudioFilesFromAttachments()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        transcriptor.requestAuthorization()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -87,7 +99,9 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
     
     // MARK: - Transcription
     private func transcribe(from url: URL) {
-        transcriptor.transcribe(from: url)
+        transcriptor.transcribe(from: url) {
+            txLog("GOT A RESPONSE ON VC!!!", $0, $1)
+        }
     }
     
     //MARK: - View Components State
