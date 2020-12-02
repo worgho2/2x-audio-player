@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TutorialSection: MainTableViewSection {
+class TutorialSection: SettingsTableViewSection {
     init() {
         super.init(
             headerTitle: "Tutorial",

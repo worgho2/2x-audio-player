@@ -209,22 +209,26 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Wr-Pn-sCN" userLabel="translationContainer">
                                                 <rect key="frame" x="0.0" y="392.5" width="373" height="169.5"/>
                                                 <subviews>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="HI lorena" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fbY-h0-9nh">
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Loading transcript, it might take a while." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fbY-h0-9nh">
                                                         <rect key="frame" x="0.0" y="0.0" width="373" height="169.5"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <gestureRecognizers/>
                                                         <color key="textColor" systemColor="labelColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <connections>
+                                                            <outletCollection property="gestureRecognizers" destination="JH3-op-IjV" appends="YES" id="G9q-Bi-kS8"/>
+                                                        </connections>
                                                     </textView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4BH-ZF-MJa">
                                                         <rect key="frame" x="0.0" y="0.0" width="373" height="169.5"/>
                                                         <subviews>
                                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="if4-KU-jvc">
                                                                 <rect key="frame" x="168" y="66.5" width="37" height="37"/>
-                                                                <color key="color" systemColor="labelColor"/>
+                                                                <color key="color" systemColor="systemGreenColor"/>
                                                             </activityIndicatorView>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.38488905669144979" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.050000000000000003" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="if4-KU-jvc" firstAttribute="centerY" secondItem="4BH-ZF-MJa" secondAttribute="centerY" id="6ZF-1f-CCE"/>
                                                             <constraint firstItem="if4-KU-jvc" firstAttribute="centerX" secondItem="4BH-ZF-MJa" secondAttribute="centerX" id="tsq-Ga-NEq"/>
@@ -301,6 +305,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CEy-Cv-SGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="JH3-op-IjV">
+                    <connections>
+                        <action selector="onTranscriptionTextView:" destination="j1y-V4-xli" id="ph9-e3-ReJ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-275.36231884057975" y="118.52678571428571"/>
         </scene>

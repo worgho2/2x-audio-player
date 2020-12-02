@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import MessageUI
 
-class ContactUsRow: MainTableViewRow {
+class ContactUsRow: SettingsTableViewRow {
     private let cellIdentifier: String = "BasicTableViewCell"
     private let cellNibName: String = "BasicTableViewCell"
     private var sender: UIViewController?
@@ -44,7 +44,7 @@ class ContactUsRow: MainTableViewRow {
     }
 }
 
-extension MainTableViewController: MFMailComposeViewControllerDelegate {
+extension SettingsTableViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
     }

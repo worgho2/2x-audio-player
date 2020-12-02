@@ -10,16 +10,7 @@ import Social
 import MobileCoreServices
 import AVFoundation
 
-public func txLog(_ message: Any...) {
-    NSLog("[asdqwe] \(message)")
-}
-
-class PlayerViewController: UIViewController, PlayerObserverProtocol, TranscriptorDelegate {
-    // MARK: - TranscriptorDelegate methods
-    func onRecognitionCompleted(result: String?, error: Error?) {
-       txLog("RECOGNITION COMPLETED!", result, error)
-    }
-    
+class PlayerViewController: UIViewController, PlayerObserverProtocol {
     
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var spacerView: UIView!
@@ -28,7 +19,7 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol, Transcript
     @IBOutlet weak var goBackButton: UIButton!
     @IBOutlet weak var goForwardButton: UIButton!
     @IBOutlet weak var rateButton: UIButton!
-
+    
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var currentTimeLabel: UILabel!
     @IBOutlet weak var timeSlider: UISlider!
@@ -43,43 +34,44 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol, Transcript
     
     var sliderTimer: Timer?
     
-    private var transcriptor: Transcriptor = DefaultTranscriptor()
+    private var transcriptor: Transcriptor = NativeTranscriptor()
     
     //MARK: - Application Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewState(.initial)
+        setTranscriptionState(.loading)
         loadAudioFilesFromAttachments()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        transcriptor.requestAuthorization()
+//        self.transcriptor.requestAuthorization()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.extensionContext?.cancelRequest(withError: Error.self as! Error)
+        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
     }
     
-    //MARK: - Loading
+    //MARK: - Attachments Loading
     func loadAudioFilesFromAttachments() {
         let attachments = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
         let contentType = kUTTypeData as String
         
         for provider in attachments {
-            guard provider.hasItemConformingToTypeIdentifier(contentType)
-            else { continue }
-            provider.loadItem(
-                forTypeIdentifier: contentType,
-                options: nil
-            ) { [weak self] (data, error) in
-                guard let self = self,
-                      let url = data as? URL,
-                      error == nil
-                else { return }
-                self.transcribe(from: url)
+            
+            guard provider.hasItemConformingToTypeIdentifier(contentType) else {
+                continue
+            }
+            
+            provider.loadItem(forTypeIdentifier: contentType, options: nil) { [weak self] (data, error) in
+                
+                guard let self = self, let url = data as? URL, error == nil else {
+                    return
+                }
+                self.transcribe(contentsOf: url)
                 self.player.addListener(self)
                 self.player.prepareToPlay(contentsOf: url)
                 self.player.setRate(rate: self.currentRateState.rawValue)
@@ -87,7 +79,7 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol, Transcript
         }
     }
     
-    //MARK: - PlayerObserverProtocol
+    //MARK: - PlayerObserverProtocol methods
     func setup() {
         setTimerSliderRange(min: 0, max: player.duration)
         setDurationLabelState(player.duration.asFormatedString())
@@ -97,32 +89,22 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol, Transcript
         setCurrentTimeLabelState(player.currentTime.asFormatedString())
         setTimerSliderState(player.currentTime)
     }
-
+    
     func didFinishPlaying() {
         setPlayButtonState(.play)
     }
     
     // MARK: - Transcription
-    private func transcribe(from url: URL) {
-        startLoadingTranscription()
-        transcriptor.transcribe(from: url) { [weak self] result, error in
-            self?.stopLoadingTranscription()
-            txLog("got a result!", result)
+    private func transcribe(contentsOf url: URL) {
+        transcriptor.transcribe(contentsOf: url) { [weak self] (result, error) in
+            
             guard let result = result else {
-                return // TODO present error
+                self?.setTranscriptionState(.done, text: "Error transcribing the file")
+                return
             }
-            self?.transcriptionTextView.text = result
+            
+            self?.setTranscriptionState(.done, text: result)
         }
-    }
-    
-    func startLoadingTranscription() {
-        loadingView.isHidden = false
-        loadingActivityIndicator.startAnimating()
-    }
-    
-    func stopLoadingTranscription() {
-        loadingView.isHidden = true
-        loadingActivityIndicator.stopAnimating()
     }
     
     //MARK: - View Components State
@@ -213,6 +195,37 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol, Transcript
         }
     }
     
+    func setTranscriptionState(_ state: TranscriptionState, text: String = "") {
+        DispatchQueue.main.async {
+            switch state {
+            case .loading:
+                
+                self.loadingView.isHidden = false
+                
+                UIView.animate(withDuration: 1) {
+                    self.loadingView.backgroundColor = .separator
+                    self.loadingActivityIndicator.startAnimating()
+                    self.transcriptionTextView.text = "Loading transcript, optimized for files under 1 minute..."
+                }
+
+                break
+
+            case .done:
+
+                UIView.animate(withDuration: 0.5) {
+                    self.loadingActivityIndicator.stopAnimating()
+                    self.loadingView.backgroundColor = .clear
+                } completion: { (_) in
+                    self.loadingView.isHidden = true
+                    self.transcriptionTextView.text = text
+                }
+                
+                break
+
+            }
+        }
+    }
+    
     //MARK: - View Components Action
     
     @IBAction func onPlayButton(_ sender: Any) {
@@ -251,8 +264,24 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol, Transcript
             self.player.play()
             self.setPlayButtonState(.pause)
         })
-        //MARK: - TODO
     }
+    
+    @IBAction func onTranscriptionTextView(_ sender: Any) {
+        UIPasteboard.general.string = self.transcriptionTextView.text
+        let alert = UIAlertController(title: "Copied to clipboard", message: nil, preferredStyle: .alert)
+        
+        self.present(alert, animated: true) {
+            Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (t) in
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
+}
+
+enum TranscriptionState {
+    case loading
+    case done
 }
 
 enum ViewState {

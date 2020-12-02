@@ -1,5 +1,5 @@
 //
-//  MainTableViewModel.swift
+//  SettingsTableViewModel.swift
 //  2xSpeedAudio
 //
 //  Created by otavio on 15/11/20.
@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-class MainTableViewModel {
-    let sections: [MainTableViewSection]
+class SettingsTableViewModel {
+    let sections: [SettingsTableViewSection]
     
     init() {
         self.sections = [
-//            TutorialSection(),
+            TutorialSection(),
             HelpSection()
         ]
     }

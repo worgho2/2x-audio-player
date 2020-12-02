@@ -28,7 +28,7 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
             self.playerObserverListeners.forEach({ $0.update() })
         })
         
-        Logger.log(origin: "App player", "começou")
+        Logger.log(origin: Self.self, "Audio player initialized")
     }
     
     var isPlaying: Bool {

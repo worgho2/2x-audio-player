@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class LicensesRow: MainTableViewRow {
+class BasicRow: SettingsTableViewRow {
     private let cellIdentifier: String = "BasicTableViewCell"
     private let cellNibName: String = "BasicTableViewCell"
     private var sender: UIViewController?
@@ -20,12 +20,15 @@ class LicensesRow: MainTableViewRow {
     
     func buildCell(for tableView: UITableView, sender: UIViewController) -> UITableViewCell {
         self.sender = sender
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! BasicTableViewCell
-        cell.setup(image: UIImage(systemName: "checkmark.seal.fill")!, title: "Licenses")
+        cell.setup(image: UIImage(systemName: "message.fill")!, title: "Basic")
         return cell
     }
     
     func didSelected() {
-        self.sender?.performSegue(withIdentifier: "LicensesSegue", sender: self.sender)
+        let alert = UIAlertController(title: "2x Speed Audio", message: "It is an application that contains a useful action extension for listening to audios faster from any compatible application.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        sender?.present(alert, animated: true)
     }
 }

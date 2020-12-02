@@ -11,13 +11,8 @@ class Logger {
     
     static func log(origin: Any, _ message: Any ...) {
         NSLog("""
-
         {
-            origin: {
-                \(String(describing: origin))
-            }
-
-            \(message)
+            [\(String(describing: origin))] - \(message)
         }
         """)
     }
