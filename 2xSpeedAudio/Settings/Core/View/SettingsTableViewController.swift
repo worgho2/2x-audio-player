@@ -1,5 +1,5 @@
 //
-//  MainTableViewController.swift
+//  SettingsTableViewController.swift
 //  2xSpeedAudio
 //
 //  Created by otavio on 15/11/20.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class MainTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController {
     
-    var model = MainTableViewModel()
+    var model = SettingsTableViewModel()
     
     //MARK: - Application Lifecyle
     

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class AddExtensionToFavoritesRow: MainTableViewRow {
+class AddExtensionToFavoritesRow: SettingsTableViewRow {
     private let cellIdentifier: String = "BasicTableViewCell"
     private let cellNibName: String = "BasicTableViewCell"
     private var sender: UIViewController?

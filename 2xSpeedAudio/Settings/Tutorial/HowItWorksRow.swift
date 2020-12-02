@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HowItWorksRow: MainTableViewRow {
+class HowItWorksRow: SettingsTableViewRow {
     private let cellIdentifier: String = "BasicTableViewCell"
     private let cellNibName: String = "BasicTableViewCell"
     private var sender: UIViewController?

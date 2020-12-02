@@ -1,4 +1,5 @@
 import UIKit
+import Speech
 
 final class TXTabBarController: UITabBarController {
     
@@ -10,19 +11,18 @@ final class TXTabBarController: UITabBarController {
     }
     
     // MARK: - Initalization
-
     override func viewDidLoad() {
         super.viewDidLoad()
         initTabBar(with: [
-            .init(
-                title: "Home",
-                image:UIImage(systemName: "house.fill")!,
-                viewController: UINavigationController(rootViewController: TXTutorialViewController())
-            ),
+//            .init(
+//                title: "Home",
+//                image: UIImage(systemName: "house.fill")!,
+//                viewController: UINavigationController(rootViewController: TXTutorialViewController())
+//            ),
             .init(
                 title: "Settings",
                 image: UIImage(systemName: "gear")!,
-                viewController: UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()!
+                viewController: UIStoryboard(name: "Settings", bundle: nil).instantiateInitialViewController()!
             )
         ])
     }

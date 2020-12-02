@@ -19,10 +19,14 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
     @IBOutlet weak var goBackButton: UIButton!
     @IBOutlet weak var goForwardButton: UIButton!
     @IBOutlet weak var rateButton: UIButton!
-
+    
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var currentTimeLabel: UILabel!
     @IBOutlet weak var timeSlider: UISlider!
+    
+    @IBOutlet weak var transcriptionTextView: UITextView!
+    @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var loadingActivityIndicator: UIActivityIndicatorView!
     
     var player = AudioPlayer.instance
     
@@ -30,62 +34,52 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
     
     var sliderTimer: Timer?
     
+    private var transcriptor: Transcriptor = NativeTranscriptor()
+    
     //MARK: - Application Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewState(.initial)
+        setTranscriptionState(.loading)
         loadAudioFilesFromAttachments()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        self.transcriptor.requestAuthorization()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.extensionContext?.cancelRequest(withError: Error.self as! Error)
+        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
     }
     
-    //MARK: - Loading
+    //MARK: - Attachments Loading
     func loadAudioFilesFromAttachments() {
         let attachments = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
         let contentType = kUTTypeData as String
         
         for provider in attachments {
-            if provider.hasItemConformingToTypeIdentifier(contentType) {
-                provider.loadItem(forTypeIdentifier: contentType, options: nil) { [unowned self] (data, error) in
-                    guard error == nil else { return }
-                    player.addListener(self)
-                    player.prepareToPlay(contentsOf: data as! URL)
-                    player.setRate(rate: currentRateState.rawValue)
+            
+            guard provider.hasItemConformingToTypeIdentifier(contentType) else {
+                continue
+            }
+            
+            provider.loadItem(forTypeIdentifier: contentType, options: nil) { [weak self] (data, error) in
+                
+                guard let self = self, let url = data as? URL, error == nil else {
+                    return
                 }
+                self.transcribe(contentsOf: url)
+                self.player.addListener(self)
+                self.player.prepareToPlay(contentsOf: url)
+                self.player.setRate(rate: self.currentRateState.rawValue)
             }
         }
-//        for item in self.extensionContext!.inputItems as! [NSExtensionItem] {
-//            for provider in item.attachments! {
-//                if provider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
-//                    // This is an image. We'll load it, then place it in our image view.
-//                    weak var weakImageView = self.imageView
-//                    provider.loadItem(forTypeIdentifier: kUTTypeImage as String, options: nil, completionHandler: { (imageURL, error) in
-//                        OperationQueue.main.addOperation {
-//                            if let strongImageView = weakImageView {
-//                                if let imageURL = imageURL as? URL {
-//                                    strongImageView.image = UIImage(data: try! Data(contentsOf: imageURL))
-//                                }
-//                            }
-//                        }
-//                    })
-//
-//                    imageFound = true
-//                    break
-//                }
-//            }
-//
-//            if (imageFound) {
-//                // We only handle one image, so stop looking for more.
-//                break
-//            }
-//        }
     }
     
-    //MARK: - PlayerObserverProtocol
+    //MARK: - PlayerObserverProtocol methods
     func setup() {
         setTimerSliderRange(min: 0, max: player.duration)
         setDurationLabelState(player.duration.asFormatedString())
@@ -95,9 +89,22 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
         setCurrentTimeLabelState(player.currentTime.asFormatedString())
         setTimerSliderState(player.currentTime)
     }
-
+    
     func didFinishPlaying() {
         setPlayButtonState(.play)
+    }
+    
+    // MARK: - Transcription
+    private func transcribe(contentsOf url: URL) {
+        transcriptor.transcribe(contentsOf: url) { [weak self] (result, error) in
+            
+            guard let result = result else {
+                self?.setTranscriptionState(.done, text: "Error transcribing the file")
+                return
+            }
+            
+            self?.setTranscriptionState(.done, text: result)
+        }
     }
     
     //MARK: - View Components State
@@ -188,6 +195,37 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
         }
     }
     
+    func setTranscriptionState(_ state: TranscriptionState, text: String = "") {
+        DispatchQueue.main.async {
+            switch state {
+            case .loading:
+                
+                self.loadingView.isHidden = false
+                
+                UIView.animate(withDuration: 1) {
+                    self.loadingView.backgroundColor = .separator
+                    self.loadingActivityIndicator.startAnimating()
+                    self.transcriptionTextView.text = "Loading transcript, optimized for files under 1 minute..."
+                }
+
+                break
+
+            case .done:
+
+                UIView.animate(withDuration: 0.5) {
+                    self.loadingActivityIndicator.stopAnimating()
+                    self.loadingView.backgroundColor = .clear
+                } completion: { (_) in
+                    self.loadingView.isHidden = true
+                    self.transcriptionTextView.text = text
+                }
+                
+                break
+
+            }
+        }
+    }
+    
     //MARK: - View Components Action
     
     @IBAction func onPlayButton(_ sender: Any) {
@@ -226,8 +264,24 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
             self.player.play()
             self.setPlayButtonState(.pause)
         })
-        //MARK: - TODO
     }
+    
+    @IBAction func onTranscriptionTextView(_ sender: Any) {
+        UIPasteboard.general.string = self.transcriptionTextView.text
+        let alert = UIAlertController(title: "Copied to clipboard", message: nil, preferredStyle: .alert)
+        
+        self.present(alert, animated: true) {
+            Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (t) in
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
+}
+
+enum TranscriptionState {
+    case loading
+    case done
 }
 
 enum ViewState {

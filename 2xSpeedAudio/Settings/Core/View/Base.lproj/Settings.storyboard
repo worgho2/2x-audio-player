@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--2x Speed Audio-->
+        <!--Settings-->
         <scene sceneID="n6M-sn-x70">
             <objects>
-                <tableViewController id="oh5-ki-nke" customClass="MainTableViewController" customModule="_xSpeedAudio" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="oh5-ki-nke" customClass="SettingsTableViewController" customModule="_xSpeedAudio" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="cHb-nX-u1w">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,7 +22,7 @@
                             <outlet property="delegate" destination="oh5-ki-nke" id="a2p-NQ-jRo"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="2x Speed Audio" id="WQ5-cq-3f8"/>
+                    <navigationItem key="navigationItem" title="Settings" id="WQ5-cq-3f8"/>
                     <connections>
                         <segue destination="QwV-5P-vw3" kind="show" identifier="LicensesSegue" id="wfJ-u6-rrv"/>
                     </connections>
