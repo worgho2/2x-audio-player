@@ -35,6 +35,7 @@ public class DefaultTranscriptor: Transcriptor {
             self?.isAuthorizedToTranscribe = status == .authorized
         }
     }
+    
     func transcribe(from url: URL, completion: @escaping (String?, Error?) -> Void) {
         txLog("TRANSCRIBING FROM", url)
         guard isAuthorizedToTranscribe else {

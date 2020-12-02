@@ -16,7 +16,7 @@ final class TXTabBarController: UITabBarController {
         initTabBar(with: [
             .init(
                 title: "Home",
-                image:UIImage(systemName: "house.fill")!,
+                image: UIImage(systemName: "house.fill")!,
                 viewController: UINavigationController(rootViewController: TXTutorialViewController())
             ),
             .init(

@@ -27,6 +27,8 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         Timer.scheduledTimer(withTimeInterval: 0.001, repeats: true, block: { (t) in
             self.playerObserverListeners.forEach({ $0.update() })
         })
+        
+        Logger.log(origin: "App player", "começou")
     }
     
     var isPlaying: Bool {

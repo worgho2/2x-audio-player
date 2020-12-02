@@ -8,10 +8,6 @@
 import UIKit
 import os
 
-public func txLog(_ message: Any...) {
-    NSLog("[asdqwe] \(message)")
-}
-
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
@@ -21,7 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
-        txLog("AEEE")
+        Logger.log(origin: self, "App initilized")
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let rootViewController = TXTabBarController()
         self.window = UIWindow(windowScene: windowScene)

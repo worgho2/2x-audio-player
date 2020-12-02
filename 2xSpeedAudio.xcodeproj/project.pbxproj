@@ -23,6 +23,8 @@
 		7ACA8407254BC20A000FCD3C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ACA8405254BC20A000FCD3C /* Main.storyboard */; };
 		7ACA8409254BC20C000FCD3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7ACA8408254BC20C000FCD3C /* Assets.xcassets */; };
 		7ACA840C254BC20C000FCD3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ACA840A254BC20C000FCD3C /* LaunchScreen.storyboard */; };
+		7ACBF3C72577C22B000B3417 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACBF3C62577C22B000B3417 /* Logger.swift */; };
+		7ACBF3CC2577C4C9000B3417 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACBF3C62577C22B000B3417 /* Logger.swift */; };
 		7AE80F0A25615B84000E22DA /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AE80F0925615B84000E22DA /* Media.xcassets */; };
 		7AE80F1325615B84000E22DA /* action.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7AE80F0725615B84000E22DA /* action.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7AE80F2625615E21000E22DA /* Player.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ACA841E254BC330000FCD3C /* Player.storyboard */; };
@@ -94,6 +96,7 @@
 		7ACA840D254BC20C000FCD3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7ACA841C254BC330000FCD3C /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		7ACA841F254BC330000FCD3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Player.storyboard; sourceTree = "<group>"; };
+		7ACBF3C62577C22B000B3417 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		7AE80F0725615B84000E22DA /* action.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = action.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE80F0925615B84000E22DA /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		7AE80F1025615B84000E22DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -153,6 +156,13 @@
 			path = "Add Extension To Favorites";
 			sourceTree = "<group>";
 		};
+		7A1441D72577CBC5009FD5A6 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		7A29BE28255A086600B34D8D /* LaunchScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,10 +211,12 @@
 		7ACA83FE254BC20A000FCD3C /* 2xSpeedAudio */ = {
 			isa = PBXGroup;
 			children = (
+				7ACBF3C52577C217000B3417 /* Logger */,
 				7AEA52EE2554C61000A624FE /* Audio Player */,
 				7AEA52E82554C27900A624FE /* Extensions */,
 				7A29BE28255A086600B34D8D /* LaunchScreen */,
 				7AE80F692561A446000E22DA /* Main */,
+				7A1441D72577CBC5009FD5A6 /* Settings */,
 				D727625025620ED2001707F5 /* Tutorial */,
 				7ACA83FF254BC20A000FCD3C /* AppDelegate.swift */,
 				7ACA8401254BC20A000FCD3C /* SceneDelegate.swift */,
@@ -212,6 +224,14 @@
 				7ACA840D254BC20C000FCD3C /* Info.plist */,
 			);
 			path = 2xSpeedAudio;
+			sourceTree = "<group>";
+		};
+		7ACBF3C52577C217000B3417 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				7ACBF3C62577C22B000B3417 /* Logger.swift */,
+			);
+			path = Logger;
 			sourceTree = "<group>";
 		};
 		7AE80F0825615B84000E22DA /* action */ = {
@@ -463,6 +483,7 @@
 				7AE80F832561BFEA000E22DA /* HelpSection.swift in Sources */,
 				7A29EF482561D58E003A3AB4 /* TutorialSection.swift in Sources */,
 				7AE80F882561C0AC000E22DA /* PrivacyPolicyRow.swift in Sources */,
+				7ACBF3C72577C22B000B3417 /* Logger.swift in Sources */,
 				7AE80F9C2561C759000E22DA /* BasicTableViewCell.swift in Sources */,
 				7A29EF282561D29E003A3AB4 /* ContactUsRow.swift in Sources */,
 				7AEA52DB2554B7A200A624FE /* PlayerObserverProtocol.swift in Sources */,
@@ -487,6 +508,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AE80F3625615E4C000E22DA /* Extensions.swift in Sources */,
+				7ACBF3CC2577C4C9000B3417 /* Logger.swift in Sources */,
 				D7AE567C2572C7C90035D113 /* Transcriptor.swift in Sources */,
 				7AE80F2A25615E24000E22DA /* PlayerViewController.swift in Sources */,
 				7AE80F2E25615E46000E22DA /* PlayerObserverProtocol.swift in Sources */,
@@ -656,7 +678,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = QM43B7QRF9;
+				DEVELOPMENT_TEAM = 373U5VR954;
 				INFOPLIST_FILE = 2xSpeedAudio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -678,7 +700,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = QM43B7QRF9;
+				DEVELOPMENT_TEAM = 373U5VR954;
 				INFOPLIST_FILE = 2xSpeedAudio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -698,7 +720,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = QM43B7QRF9;
+				DEVELOPMENT_TEAM = 373U5VR954;
 				INFOPLIST_FILE = action/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -720,7 +742,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = QM43B7QRF9;
+				DEVELOPMENT_TEAM = 373U5VR954;
 				INFOPLIST_FILE = action/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

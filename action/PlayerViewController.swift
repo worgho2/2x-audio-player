@@ -13,6 +13,7 @@ import AVFoundation
 public func txLog(_ message: Any...) {
     NSLog("[asdqwe] \(message)")
 }
+
 class PlayerViewController: UIViewController, PlayerObserverProtocol, TranscriptorDelegate {
     // MARK: - TranscriptorDelegate methods
     func onRecognitionCompleted(result: String?, error: Error?) {
