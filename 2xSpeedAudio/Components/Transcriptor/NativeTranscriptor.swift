@@ -12,7 +12,7 @@ public class NativeTranscriptor: Transcriptor {
     
     private var request: SFSpeechURLRecognitionRequest?
     
-    func transcribe(contentsOf url: URL, completion: @escaping (String?, Error?) -> Void) {
+    func transcribe(contentsOf url: URL, completion: @escaping (String?, TranscriptorError?) -> Void) {
         
         SFSpeechRecognizer.requestAuthorization { [weak self] (status) in
             switch status {

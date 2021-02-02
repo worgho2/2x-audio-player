@@ -207,6 +207,16 @@
 			path = Transcriptor;
 			sourceTree = "<group>";
 		};
+		7AAD65CA25C9E8CA0076932D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				7A48238E2577D9CF00DB2643 /* Transcriptor */,
+				7AEA52EE2554C61000A624FE /* Audio Player */,
+				7ACBF3C52577C217000B3417 /* Logger */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		7ACA83F3254BC20A000FCD3C = {
 			isa = PBXGroup;
 			children = (
@@ -228,9 +238,7 @@
 		7ACA83FE254BC20A000FCD3C /* 2xSpeedAudio */ = {
 			isa = PBXGroup;
 			children = (
-				7ACBF3C52577C217000B3417 /* Logger */,
-				7AEA52EE2554C61000A624FE /* Audio Player */,
-				7A48238E2577D9CF00DB2643 /* Transcriptor */,
+				7AAD65CA25C9E8CA0076932D /* Components */,
 				7AEA52E82554C27900A624FE /* Extensions */,
 				7A29BE28255A086600B34D8D /* LaunchScreen */,
 				7AE80F692561A446000E22DA /* Main */,
@@ -737,7 +745,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 373U5VR954;
 				INFOPLIST_FILE = action/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -759,7 +767,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExtensionIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 373U5VR954;
 				INFOPLIST_FILE = action/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

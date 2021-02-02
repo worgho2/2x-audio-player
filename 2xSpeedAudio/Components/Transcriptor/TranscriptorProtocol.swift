@@ -8,7 +8,7 @@
 import Foundation
 
 protocol Transcriptor {
-    func transcribe(contentsOf url: URL, completion: @escaping (String?, Error?) -> Void)
+    func transcribe(contentsOf url: URL, completion: @escaping (String?, TranscriptorError?) -> Void)
 }
 
 enum TranscriptorError: Error {

@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>We request permission to turn the audio into text</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -33,7 +31,7 @@
     SUBQUERY (
         $extensionItem.attachments,
         $attachment,
-        ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;public.audio&quot;
+        ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.audio"
     ).@count == $extensionItem.attachments.@count
 ).@count &gt;= 1</string>
 			<key>NSExtensionServiceAllowsFinderPreviewItem</key>
@@ -52,5 +50,7 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.ui-services</string>
 	</dict>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>We request permission to turn the audio into text</string>
 </dict>
 </plist>

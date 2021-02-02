@@ -18,36 +18,32 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var goBackButton: UIButton!
     @IBOutlet weak var goForwardButton: UIButton!
-    @IBOutlet weak var rateButton: UIButton!
     
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var currentTimeLabel: UILabel!
     @IBOutlet weak var timeSlider: UISlider!
     
-    @IBOutlet weak var transcriptionTextView: UITextView!
-    @IBOutlet weak var loadingView: UIView!
-    @IBOutlet weak var loadingActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var rateSegment: UISegmentedControl!
     
     var player = AudioPlayer.instance
-    
-    var currentRateState: RateButtonState = .fast
-    
     var sliderTimer: Timer?
     
-    private var transcriptor: Transcriptor = NativeTranscriptor()
+    //MARK: - temporary speed config
+    
+    let speeds: [Float] = [1.0,1.2,1.4,1.6,1.8,2.0]
+    let currentSpeedIndex = 0
+    
     
     //MARK: - Application Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewState(.initial)
-        setTranscriptionState(.loading)
         loadAudioFilesFromAttachments()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        self.transcriptor.requestAuthorization()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -71,10 +67,9 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
                 guard let self = self, let url = data as? URL, error == nil else {
                     return
                 }
-                self.transcribe(contentsOf: url)
                 self.player.addListener(self)
                 self.player.prepareToPlay(contentsOf: url)
-                self.player.setRate(rate: self.currentRateState.rawValue)
+                self.player.setRate(rate: 1.0)
             }
         }
     }
@@ -94,19 +89,6 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
         setPlayButtonState(.play)
     }
     
-    // MARK: - Transcription
-    private func transcribe(contentsOf url: URL) {
-        transcriptor.transcribe(contentsOf: url) { [weak self] (result, error) in
-            
-            guard let result = result else {
-                self?.setTranscriptionState(.done, text: "Error transcribing the file")
-                return
-            }
-            
-            self?.setTranscriptionState(.done, text: result)
-        }
-    }
-    
     //MARK: - View Components State
     func setViewState(_ state: ViewState) {
         switch state {
@@ -120,14 +102,13 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
                 self.spacerView.layer.cornerRadius = 0.45 * min(self.spacerView.frame.width, self.spacerView.frame.height)
                 
                 self.contentView.clipsToBounds = true
-                self.contentView.layer.cornerRadius = 0.188 * min(self.contentView.frame.width, self.contentView.frame.height)
+                self.contentView.layer.cornerRadius = 0.07 * min(self.contentView.frame.width, self.contentView.frame.height)
                 self.contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             }
             
             setDurationLabelState(.initial)
             setCurrentTimeLabelState(.initial)
             setPlayButtonState(.play)
-            setRateButtonState(.fast)
             
             break
         }
@@ -137,12 +118,6 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
     func setPlayButtonState(_ state: PlayButtonState) {
         DispatchQueue.main.async {
             self.playButton.setBackgroundImage(UIImage(systemName: state.rawValue), for: .normal)
-        }
-    }
-    
-    func setRateButtonState(_ state: RateButtonState) {
-        DispatchQueue.main.async {
-            self.rateButton.setTitle("\(state.rawValue)x", for: .normal)
         }
     }
     
@@ -195,37 +170,6 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
         }
     }
     
-    func setTranscriptionState(_ state: TranscriptionState, text: String = "") {
-        DispatchQueue.main.async {
-            switch state {
-            case .loading:
-                
-                self.loadingView.isHidden = false
-                
-                UIView.animate(withDuration: 1) {
-                    self.loadingView.backgroundColor = .separator
-                    self.loadingActivityIndicator.startAnimating()
-                    self.transcriptionTextView.text = "Loading transcript, optimized for files under 1 minute..."
-                }
-
-                break
-
-            case .done:
-
-                UIView.animate(withDuration: 0.5) {
-                    self.loadingActivityIndicator.stopAnimating()
-                    self.loadingView.backgroundColor = .clear
-                } completion: { (_) in
-                    self.loadingView.isHidden = true
-                    self.transcriptionTextView.text = text
-                }
-                
-                break
-
-            }
-        }
-    }
-    
     //MARK: - View Components Action
     
     @IBAction func onPlayButton(_ sender: Any) {
@@ -246,10 +190,12 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
         player.goForward(15)
     }
     
-    @IBAction func onRateButton(_ sender: Any) {
-        currentRateState = currentRateState.next()
-        player.setRate(rate: currentRateState.rawValue)
-        setRateButtonState(currentRateState)
+    @IBAction func onRateSegment(_ sender: UISegmentedControl) {
+        guard let rate = Float(sender.titleForSegment(at: sender.selectedSegmentIndex) ?? "1.0") else {
+            print("Erro no sender")
+            return
+        }
+        player.setRate(rate: rate)
     }
     
     
@@ -265,23 +211,8 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
             self.setPlayButtonState(.pause)
         })
     }
-    
-    @IBAction func onTranscriptionTextView(_ sender: Any) {
-        UIPasteboard.general.string = self.transcriptionTextView.text
-        let alert = UIAlertController(title: "Copied to clipboard", message: nil, preferredStyle: .alert)
-        
-        self.present(alert, animated: true) {
-            Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (t) in
-                self.dismiss(animated: true, completion: nil)
-            }
-        }
-    }
-    
-}
 
-enum TranscriptionState {
-    case loading
-    case done
+    
 }
 
 enum ViewState {
@@ -305,23 +236,6 @@ enum GoBackwardButtonState: String {
 enum GoForwardButtonState: String {
     case initial = "goforward.15"
 }
-
-enum RateButtonState: Float {
-    case normal = 1
-    case nice = 1.4
-    case fast = 1.8
-    case faster = 2.2
-    
-    func next() -> RateButtonState {
-        switch self {
-        case .normal: return .nice
-        case .nice: return .fast
-        case .fast: return .faster
-        case .faster: return .normal
-        }
-    }
-}
-
 
 enum PlayButtonState: String {
     case play = "play.fill"
