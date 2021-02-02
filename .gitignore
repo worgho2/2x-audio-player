@@ -1,12 +1,32 @@
+## MacOS
+#
 .DS_Store
 
-2xSpeedAudio.xcodeproj/project.xcworkspace/xcuserdata/
+## User settings
+#
+xcuserdata/
+
+## Obj-C/Swift specific
+#
+*.hmap
+
+## App packaging
+#
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## Playgrounds
+#
+timeline.xctimeline
+playground.xcworkspace
+
+## CocoaPods
+#
+Pods/
+*.xcworkspace
 
 
-2xSpeedAudio.xcodeproj/project.xcworkspace/xcshareddata/
-
-2xSpeedAudio.xcodeproj/xcuserdata/otavio.xcuserdatad/xcdebugger/
-
-2xSpeedAudio.xcodeproj/xcuserdata/otavio.xcuserdatad/xcschemes/
-
-2xSpeedAudio.xcodeproj/xcuserdata/pastre.xcuserdatad/xcdebugger/
+## General
+#
+.build/
