@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Logger.log(origin: Self.self, "App initilized")
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let rootViewController = TXTabBarController()
+        let rootViewController = MainTabBarController()
         self.window = UIWindow(windowScene: windowScene)
         self.window?.rootViewController = rootViewController
         self.window?.makeKeyAndVisible()

@@ -13,9 +13,7 @@ class TutorialSection: SettingsTableViewSection {
             headerTitle: "Tutorial",
             footerTitle: nil,
             rows: [
-                BasicRow(),
-                HowItWorksRow(),
-                AddExtensionToFavoritesRow(),
+                DemoRow(),
             ]
         )
     }

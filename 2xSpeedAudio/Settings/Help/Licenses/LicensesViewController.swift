@@ -21,8 +21,6 @@ class LicensesViewController: UIViewController {
         self.textView.text = """
         Licenses:
 
-        Tutorial Music: https://www.bensound.com
-
         --
         """
     }
