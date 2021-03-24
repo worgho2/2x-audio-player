@@ -14,6 +14,7 @@ class SettingsTableViewModel {
     init() {
         self.sections = [
             TutorialSection(),
+//            GeneralSection(),
             HelpSection()
         ]
     }

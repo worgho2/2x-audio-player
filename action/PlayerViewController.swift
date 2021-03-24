@@ -25,21 +25,28 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
     
     @IBOutlet weak var rateSegment: UISegmentedControl!
     
+    @IBOutlet weak var transcribeButton: UIButton!
+    @IBOutlet weak var transcribeActivityMonitor: UIActivityIndicatorView!
+    
+    //MARK: - Transcription
+    
+    let transcriptor: Transcriptor = NativeTranscriptor()
+    var urlToTranscribe: URL? // colocar para dentro do transcriptor
+    
+    //MARK: - Player
+    
     var player = AudioPlayer.instance
     var sliderTimer: Timer?
-    
-    //MARK: - temporary speed config
-    
-    let speeds: [Float] = [1.0,1.2,1.4,1.6,1.8,2.0]
-    let currentSpeedIndex = 0
-    
+    let speeds: [Float] = [1.0,1.25,1.5,2.0,2.25,2.5]
     
     //MARK: - Application Lifecycle
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewState(.initial)
         loadAudioFilesFromAttachments()
+        rateSegment.selectedSegmentIndex = self.speeds.firstIndex(of: Preferences.playbackSpeed) ?? 0
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -70,6 +77,8 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
                 self.player.addListener(self)
                 self.player.prepareToPlay(contentsOf: url)
                 self.player.setRate(rate: 1.0)
+                self.urlToTranscribe = url
+                self.player.setRate(rate: Preferences.playbackSpeed)
             }
         }
     }
@@ -109,7 +118,7 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
             setDurationLabelState(.initial)
             setCurrentTimeLabelState(.initial)
             setPlayButtonState(.play)
-            
+            setTranscribeComponentsState(.initial)
             break
         }
         
@@ -170,6 +179,23 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
         }
     }
     
+    func setTranscribeComponentsState(_ state: TranscribeComponentsState) {
+        DispatchQueue.main.async {
+            switch (state) {
+            case .initial:
+                self.transcribeButton.isHidden = false
+                self.transcribeActivityMonitor.stopAnimating()
+                self.transcribeActivityMonitor.isHidden = true
+                break
+            case .transcribing:
+                self.transcribeButton.isHidden = true
+                self.transcribeActivityMonitor.startAnimating()
+                self.transcribeActivityMonitor.isHidden = false
+                break
+            }
+        }
+    }
+    
     //MARK: - View Components Action
     
     @IBAction func onPlayButton(_ sender: Any) {
@@ -195,6 +221,8 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
             print("Erro no sender")
             return
         }
+        
+        Preferences.playbackSpeed = rate
         player.setRate(rate: rate)
     }
     
@@ -211,8 +239,94 @@ class PlayerViewController: UIViewController, PlayerObserverProtocol {
             self.setPlayButtonState(.pause)
         })
     }
-
     
+    @IBAction func onTranscribe(_ sender: Any) {
+        let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: 250, height: 200))
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        pickerView.selectRow(transcriptor.availableLocationCodes.firstIndex(of: Preferences.localeCode) ?? 0, inComponent: 0, animated: false)
+        
+        let vc = UIViewController()
+        vc.view.backgroundColor = .clear
+        vc.preferredContentSize = CGSize(width: 250 , height: 200)
+        vc.view.addSubview(pickerView)
+        
+        let alert = UIAlertController(title: "Select Audio Language", message: nil, preferredStyle: .alert)
+        alert.setValue(vc, forKey: "contentViewController")
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Start", style: .default, handler: { [weak self] (_) in
+            self?.setTranscribeComponentsState(.transcribing)
+            
+            self?.transcriptor.transcribe(contentsOf: self!.urlToTranscribe!, forLocale: Locale(identifier: Preferences.localeCode)) { (result, error) in
+                if let error = error {
+                    switch error {
+                    case .fileError:
+                        print("file error")
+                    case .unauthorized:
+                        print("Unauthorized")
+                        break
+                    case .unavailable:
+                        print("Unavailable")
+                        break
+                    }
+                    
+                    let alert = UIAlertController(title: "Error", message: "Transcription is Unavailable", preferredStyle: .alert)
+                    self?.present(alert, animated: true) {
+                        Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false) { (t) in
+                            self?.dismiss(animated: true)
+                            t.invalidate()
+                        }
+                    }
+                    self?.setTranscribeComponentsState(.initial)
+                    return
+                }
+                
+                self?.setTranscribeComponentsState(.initial)
+                
+                let textView = UITextView(frame: CGRect(x: 0, y: 0, width: 250, height: 200))
+                textView.isEditable = false
+                textView.backgroundColor = .clear
+                textView.font = UIFont.systemFont(ofSize: 15)
+                textView.text = result
+                
+                let vc = UIViewController()
+                vc.view.backgroundColor = .clear
+                vc.preferredContentSize = CGSize(width: 250 , height: 200)
+                vc.view.addSubview(textView)
+                
+                
+                let alert = UIAlertController(title: "Transcription Completed", message: nil, preferredStyle: .alert)
+                alert.setValue(vc, forKey: "contentViewController")
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { (_) in
+                    UIPasteboard.general.string = result
+                }))
+                
+                self?.present(alert, animated: true)
+            }
+        }))
+        
+        self.present(alert, animated: true)
+    }
+    
+}
+
+extension PlayerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return transcriptor.availableLocationCodes.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return Locale.current.localizedString(forIdentifier: transcriptor.availableLocationCodes[row])
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        Preferences.localeCode = transcriptor.availableLocationCodes[row]
+    }
 }
 
 enum ViewState {
@@ -240,4 +354,9 @@ enum GoForwardButtonState: String {
 enum PlayButtonState: String {
     case play = "play.fill"
     case pause = "pause.fill"
+}
+
+enum TranscribeComponentsState {
+    case initial
+    case transcribing
 }

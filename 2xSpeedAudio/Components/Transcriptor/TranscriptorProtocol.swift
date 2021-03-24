@@ -6,10 +6,14 @@
 //
 
 import Foundation
+import Speech
 
 protocol Transcriptor {
-    func transcribe(contentsOf url: URL, completion: @escaping (String?, TranscriptorError?) -> Void)
+    func transcribe(contentsOf url: URL, forLocale locale: Locale, completion: @escaping TranscriptorCompletion)
+    var availableLocationCodes: [String] { get }
 }
+
+typealias TranscriptorCompletion = (String?, TranscriptorError?) -> ()
 
 enum TranscriptorError: Error {
     case unauthorized

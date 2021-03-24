@@ -29,6 +29,20 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZTh-zM-jZf">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="59"/>
                                                         <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQZ-dz-O0h">
+                                                                <rect key="frame" x="301" y="14.5" width="73" height="30"/>
+                                                                <state key="normal" title="Transcribe"/>
+                                                                <connections>
+                                                                    <action selector="onTranscribe:" destination="j1y-V4-xli" eventType="touchUpInside" id="cmk-hs-gox"/>
+                                                                </connections>
+                                                            </button>
+                                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="qCh-uo-A7E">
+                                                                <rect key="frame" x="322.5" y="15" width="30" height="29.5"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" secondItem="qCh-uo-A7E" secondAttribute="height" multiplier="1:1" id="nY4-cL-RrZ"/>
+                                                                </constraints>
+                                                                <color key="color" systemColor="linkColor"/>
+                                                            </activityIndicatorView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Playback Speed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abo-Ox-Veq">
                                                                 <rect key="frame" x="129" y="20" width="116" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -38,6 +52,11 @@
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
+                                                            <constraint firstItem="qCh-uo-A7E" firstAttribute="centerX" secondItem="pQZ-dz-O0h" secondAttribute="centerX" id="Sgq-Vk-WLp"/>
+                                                            <constraint firstItem="qCh-uo-A7E" firstAttribute="height" secondItem="ZTh-zM-jZf" secondAttribute="height" multiplier="0.5" id="SqB-ml-L8b"/>
+                                                            <constraint firstAttribute="trailing" secondItem="pQZ-dz-O0h" secondAttribute="trailing" id="YQ7-Bg-Ays"/>
+                                                            <constraint firstItem="qCh-uo-A7E" firstAttribute="centerY" secondItem="pQZ-dz-O0h" secondAttribute="centerY" id="cVH-nY-MXT"/>
+                                                            <constraint firstItem="pQZ-dz-O0h" firstAttribute="centerY" secondItem="ZTh-zM-jZf" secondAttribute="centerY" id="dhU-Sg-QVY"/>
                                                             <constraint firstItem="abo-Ox-Veq" firstAttribute="centerY" secondItem="ZTh-zM-jZf" secondAttribute="centerY" id="rsF-8j-9Fq"/>
                                                             <constraint firstItem="abo-Ox-Veq" firstAttribute="centerX" secondItem="ZTh-zM-jZf" secondAttribute="centerX" id="yim-JW-RR6"/>
                                                         </constraints>
@@ -243,6 +262,8 @@
                         <outlet property="rateSegment" destination="Q4j-DL-jZw" id="ZEX-4d-YwD"/>
                         <outlet property="spacerView" destination="L4m-5K-hRU" id="BFC-Sk-DEi"/>
                         <outlet property="timeSlider" destination="6G0-48-p7n" id="c9B-N6-ipi"/>
+                        <outlet property="transcribeActivityMonitor" destination="qCh-uo-A7E" id="bke-6a-Ibl"/>
+                        <outlet property="transcribeButton" destination="pQZ-dz-O0h" id="EdX-AK-mCm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CEy-Cv-SGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -261,6 +282,9 @@
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

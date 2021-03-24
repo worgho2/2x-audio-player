@@ -32,7 +32,7 @@ class ContactUsRow: SettingsTableViewRow {
             let mail = MFMailComposeViewController()
             
             mail.mailComposeDelegate = (self.sender as! MFMailComposeViewControllerDelegate)
-            mail.setToRecipients(["otavio.baziewicz.filho@gmail.com", "akiratsukamoto13@gmail.com"])
+            mail.setToRecipients(["otavio.baziewicz.filho@gmail.com", "ailtonvivaz@icloud.com"])
             mail.setSubject("Contact from 2x Speed Audio")
             mail.setMessageBody("<p>Hey! Feel free to write whatever you want :)</p>", isHTML: true)
             

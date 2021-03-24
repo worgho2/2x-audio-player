@@ -9,10 +9,15 @@ import Foundation
 import Speech
 
 public class NativeTranscriptor: Transcriptor {
-    
     private var request: SFSpeechURLRecognitionRequest?
     
-    func transcribe(contentsOf url: URL, completion: @escaping (String?, TranscriptorError?) -> Void) {
+    var availableLocationCodes: [String]
+    
+    init() {
+        self.availableLocationCodes = Array(Set(SFSpeechRecognizer.supportedLocales().compactMap( { $0.languageCode })))
+    }
+    
+    func transcribe(contentsOf url: URL, forLocale locale: Locale, completion: @escaping TranscriptorCompletion) {
         
         SFSpeechRecognizer.requestAuthorization { [weak self] (status) in
             switch status {
@@ -20,21 +25,27 @@ public class NativeTranscriptor: Transcriptor {
                 Logger.log(origin: Self.self, "Authorized with success")
                 Logger.log(origin: Self.self, "Transcription started from \(url)")
                 
-                guard let recognizer = SFSpeechRecognizer() else {
-                    Logger.log(origin: Self.self, "Speech recognition not available for specified locale")
+                guard let recognizer = SFSpeechRecognizer(locale: locale) else {
+                    Logger.log(origin: Self.self, "Speech recognition is not available for specified locale")
                     completion(nil, TranscriptorError.unavailable)
                     return
                 }
                 
                 if !recognizer.isAvailable {
-                    Logger.log(origin: Self.self, "Speech recognition not currently available")
+                    Logger.log(origin: Self.self, "Speech recognition is not currently available")
                     completion(nil, TranscriptorError.unavailable)
                     return
                 }
                 
                 self?.request = SFSpeechURLRecognitionRequest(url: url)
                 
-                recognizer.recognitionTask(with: self!.request!) { (result, error) in
+                guard let secureRequest = self?.request else {
+                    Logger.log(origin: Self.self, "Speech recognition request is not currently available")
+                    completion(nil, TranscriptorError.unavailable)
+                    return
+                }
+                
+                recognizer.recognitionTask(with: secureRequest) { (result, error) in
                     guard let result = result else {
                         self?.request = nil
                         Logger.log(origin: Self.self, "There was an error transcribing that file")
